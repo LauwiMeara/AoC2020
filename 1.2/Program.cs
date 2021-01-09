@@ -12,6 +12,7 @@ namespace _1._2
 
             Search2020(entries);
         }
+
         static void Search2020(int[] entries)
         {
             for (int i = 0; i < entries.Length - 2; i++)
