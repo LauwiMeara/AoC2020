@@ -6,7 +6,7 @@ namespace _1._2
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             int[] entries = File.ReadAllLines("input.txt").Select(int.Parse).ToArray();
 

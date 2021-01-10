@@ -6,9 +6,9 @@ namespace _3._1
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            string[] input = File.ReadAllLines("input.txt").ToArray();
+            string[] input = File.ReadAllLines("input.txt");
 
             int xMap = input.Length;
             int yMap = input[0].Length;

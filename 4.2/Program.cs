@@ -5,7 +5,7 @@ namespace _4._2
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             string[] input = File.ReadAllText("input.txt").Split("\r\n\r\n", StringSplitOptions.RemoveEmptyEntries);
 
