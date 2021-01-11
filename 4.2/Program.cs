@@ -73,7 +73,7 @@ namespace _4._2
 
                         else if (passport[j].Contains("pid:"))
                         {
-                            isValid = ValidatePassportID(passport, j, isValid);
+                            isValid = ValidatePassportId(passport, j, isValid);
                         }
                     }
                 }
@@ -200,14 +200,14 @@ namespace _4._2
             return isValid;
         }
 
-        static bool ValidatePassportID(string[] passport, int j, bool isValid)
+        static bool ValidatePassportId(string[] passport, int j, bool isValid)
         {
             // pid(Passport ID) - a nine - digit number, including leading zeroes
-            string passportID = passport[j].Substring(4);
+            string passportId = passport[j].Substring(4);
 
-            bool isNumber = int.TryParse(passportID, out int digits);
+            bool isNumber = int.TryParse(passportId, out int digits);
 
-            if (!isNumber || passportID.Length != 9)
+            if (!isNumber || passportId.Length != 9)
             {
                 isValid = false;
             }
