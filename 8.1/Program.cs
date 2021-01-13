@@ -22,22 +22,24 @@ namespace _8._1
 
             while (!runInstructions.Contains(index))
             {
-                char operation = input[index][0];
+                string[] instructionParts = input[index].Split(' ');
 
-                int argument = int.Parse(input[index].Substring(4));
+                string operation = instructionParts[0];
+
+                int argument = int.Parse(instructionParts[1]);
 
                 runInstructions.Add(index);
 
-                if (operation == 'a')
+                if (operation == "acc")
                 {
                     acc += argument;
                     index++;
                 }
-                else if (operation == 'j')
+                else if (operation == "jmp")
                 {
                     index += argument;
                 }
-                else if (operation == 'n')
+                else if (operation == "nop")
                 {
                     index++;
                 }

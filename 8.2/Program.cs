@@ -8,20 +8,20 @@ namespace _8._2
     {
         struct BoolAndInt
         {
-            public bool isTerminatingLoop;
-            public int acc;
+            public bool IsTerminatingLoop;
+            public int Acc;
         }
 
         static void Main()
         {
             string[] input = File.ReadAllLines("input.txt");
 
-            int[] instructionsJmpAndNop = ListIndexesJmpAndNop(input);
-            
-            Console.WriteLine("The value of the accumulator after the terminating loop is {0}.", GetAccumulator(input, instructionsJmpAndNop));
+            int[] indexesJmpAndNop = GetIndexesJmpAndNop(input);
+
+            Console.WriteLine("The value of the accumulator after the terminating loop is {0}.", GetAccumulator(input, indexesJmpAndNop));
         }
 
-        static int[] ListIndexesJmpAndNop (string[] input)
+        static int[] GetIndexesJmpAndNop (string[] input)
         {
             List<int> indexesJmpAndNop = new List<int>();
 
@@ -48,20 +48,22 @@ namespace _8._2
 
                 Array.Copy(input, changedInput, input.Length);
 
-                if (changedInput[index][0] == 'j')
+                string operation = changedInput[index].Split(" ")[0];
+
+                if (operation == "jmp")
                 {
-                    changedInput[index] = changedInput[index].Replace('j', 'n');
+                    changedInput[index] = changedInput[index].Replace("jmp", "nop");
                 }
-                else if (changedInput[index][0] == 'n')
+                else if (operation == "nop")
                 {
-                    changedInput[index] = changedInput[index].Replace('n', 'j');
+                    changedInput[index] = changedInput[index].Replace("nop", "jmp");
                 }
 
-                BoolAndInt returnValue = FindTerminatingLoop(changedInput);
+                BoolAndInt loopState = GetLoopState(changedInput);
 
-                if (returnValue.isTerminatingLoop)
+                if (loopState.IsTerminatingLoop)
                 {
-                    acc = returnValue.acc;
+                    acc = loopState.Acc;
                     break;
                 }
             }
@@ -69,13 +71,9 @@ namespace _8._2
             return acc;
         }
 
-        static BoolAndInt FindTerminatingLoop (string[] changedInput)
+        static BoolAndInt GetLoopState (string[] changedInput)
         {
-            BoolAndInt returnValue = new BoolAndInt
-            {
-                isTerminatingLoop = false,
-                acc = 0
-            };
+            BoolAndInt loopState = new BoolAndInt();
 
             int index = 0;
 
@@ -85,32 +83,34 @@ namespace _8._2
             {
                 if (index > changedInput.Length - 1)
                 {
-                    returnValue.isTerminatingLoop = true;
-                    return returnValue;
+                    loopState.IsTerminatingLoop = true;
+                    return loopState;
                 }
 
-                char operation = changedInput[index][0];
+                string[] instructionParts = changedInput[index].Split(' ');
 
-                int argument = int.Parse(changedInput[index].Substring(4));
+                string operation = instructionParts[0];
+
+                int argument = int.Parse(instructionParts[1]);
 
                 runInstructions.Add(index);
 
-                if (operation == 'a')
+                if (operation == "acc")
                 {
-                    returnValue.acc += argument;
+                    loopState.Acc += argument;
                     index++;
                 }
-                else if (operation == 'j')
+                else if (operation == "jmp")
                 {
                     index += argument;
                 }
-                else if (operation == 'n')
+                else if (operation == "nop")
                 {
                     index++;
                 }
             }
 
-            return returnValue;
+            return loopState;
         }
     }
 }
