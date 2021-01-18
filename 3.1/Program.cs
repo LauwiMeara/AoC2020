@@ -42,7 +42,7 @@ namespace _3._1
             {
                 if (yPosition >= yMap)
                 {
-                    yPosition = yPosition - yMap;
+                    yPosition -= yMap;
                 }
 
                 if (map[xPosition, yPosition] == '#')

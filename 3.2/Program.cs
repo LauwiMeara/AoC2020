@@ -48,7 +48,7 @@ namespace _3._2
             {
                 if (yPosition >= yMap)
                 {
-                    yPosition = yPosition - yMap;
+                    yPosition -= yMap;
                 }
 
                 if (map[xPosition, yPosition] == '#')
